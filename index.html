@@ -40,8 +40,13 @@
     
     <div class="right-panel">
         <h2>Cesar</h2>
-        <button class="start-recording">▶ Start Monitoring</button>
+        <div class="button-group">
+            <button id="startRecording" class="start-recording">▶ Start Monitoring</button>
+            <button id="stopRecording" class="start-recording">⏹ Stop Monitoring</button>
+        </div>
         
+        <canvas id="canvas" style="display: none;"></canvas>
+   
         <div class="challenge-section">
             <h3>This Week’s Challenge:</h3>
             <p>✔ 80% Good Posture in 10 mins</p>
