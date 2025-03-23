@@ -43,8 +43,11 @@ def calculate_angle(a, b, c):
     
     return np.degrees(angle)
 
-def calibrate(poseResults, faceResults):
+def calibrate():
     """Calibrates initial values for posture detection"""
+    
+    poseResults = pose.process(frame)
+    faceResults = faceMesh.process(frame)
     
     if poseResults.pose_landmarks:
         landmarks = poseResults.pose_landmarks.landmark
@@ -72,9 +75,18 @@ def calibrate(poseResults, faceResults):
                 rightEye = np.array([faceLandmarks.landmark[263].x, faceLandmarks.landmark[263].y])  # Right eye
                 
                 initialData["eyeDist"] = np.linalg.norm(leftEye - rightEye)
+                
+    return initialData
 
-def detectPosture(frame, poseResults, faceResults):
+def detectPosture(image):
     """Detects posture issues based on calibrated initial values"""
+    
+    problems = []
+    
+    frame = cv2.flip(image, 1)
+    
+    poseResults = pose.process(frame)
+    faceResults = faceMesh.process(frame)
     
     if poseResults.pose_landmarks:
         landmarks = poseResults.pose_landmarks.landmark
@@ -97,18 +109,21 @@ def detectPosture(frame, poseResults, faceResults):
         if abs(headTiltAngle - initialData["headTiltAngle"]) > headTiltAngleChangeThreshold:  # If head leans too forward
             cv2.putText(frame, "Bad Posture! Keep Your Head Up!", (50, 300), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            problems.append("Bad Posture! Keep Your Head Up!")
         
         # Check 2: shoulder alignment
         shoulderTilt = abs(leftShoulder[1] - rightShoulder[1])  # Vertical difference between shoulders
         if abs(shoulderTilt - initialData["shoulderTilt"]) > shoulderTiltChangeThreshold:  # If one shoulder is significantly lower than the other
             cv2.putText(frame, "Slouching Detected! Straighten Shoulders!", (50, 350), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            problems.append("Slouching Detected! Straighten Shoulders!")
         
         # Check 3: head y displacement (back slouch)
         headY = nose[1]  # Y-position of nose (higher = slouching back, lower = sitting up straight)
         if headY > initialData["headY"] * headSinkChangeFactorThreshold:  
             cv2.putText(frame, "Slouching Detected! Sit Upright!", (50, 400), 
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            problems.append("Slouching Detected! Sit Upright!")
         
     if faceResults.multi_face_landmarks:
         for faceLandmarks in faceResults.multi_face_landmarks:
@@ -126,9 +141,19 @@ def detectPosture(frame, poseResults, faceResults):
             if distanceChange > eyeDistChangeThreshold:
                 cv2.putText(frame, "Too Close! Move Back!", (50, 100), 
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                problems.append("Too Close! Move Back!")
+                
+    return problems
+                
+                
 
-def renderMesh(frame, poseResults, faceResults):
+def renderMesh(image):
     """Renders Mediapipe mesh onto the frame"""
+    
+    frame = cv2.flip(image, 1)
+    
+    poseResults = pose.process(frame)
+    faceResults = faceMesh.process(frame)
     
     if poseResults.pose_landmarks:
         mpDrawing.draw_landmarks(
@@ -158,19 +183,13 @@ while cap.isOpened():
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
         break
-    
-    # operations on frame
-    frame = cv2.flip(frame, 1)
-    
-    poseResults = pose.process(frame)
-    faceResults = faceMesh.process(frame)
         
     if initialData["eyeDist"] == None:
-        calibrate(poseResults, faceResults)
+        calibrate()
         
-    detectPosture(frame, poseResults, faceResults)
+    detectPosture(frame)
         
-    renderMesh(frame, poseResults, faceResults)
+    renderMesh(frame)
 
     # Display the resulting frame
     cv2.imshow('Video Capture', frame)
