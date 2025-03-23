@@ -45,11 +45,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Form submission event handler
+    const registerForm = document.getElementById('registerForm');
+    registerForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        // Call the functions in sequence
+        captureAndSendUserData();
+    });
+});
+
 function nextStep() {
     window.location.href = "setup/how_to_sit.html";
 }
 
-
+// navigator.mediaDevices.getUserMedia({ video: true })
+//     .then(mediaStream => {
+//         stream = mediaStream;
+//         video.srcObject = stream; // Render the stream in a <video> element
+//         video.onloadedmetadata = () => {
+//             console.log("Camera access granted");
+//         };
+//     })
+//     .catch(error => {
+//         console.error("Error accessing camera:", error);
+//     });
 
 // Video fetching
 const video = document.getElementById('camera-feed');
@@ -58,6 +79,17 @@ const ctx = canvas.getContext('2d');
 let recording = false;
 let intervalId = null;
 let stream = null; // Store camera stream reference
+
+let user_id = 1;
+
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0');
+let yyyy = today.getFullYear();
+
+let first_instance;
+
+today = mm + '-' + dd + '-' + yyyy;
 
 document.getElementById('startRecording').addEventListener('click', startRecording);
 document.getElementById('stopRecording').addEventListener('click', stopRecording);
@@ -90,6 +122,29 @@ function stopCamera() {
 
 function startRecording() {
     if (!recording) {
+        // Fetch data from the Flask endpoint
+        first_instance = true;
+        fetch('http://127.0.0.1:5000/get_days', {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            let key = today + "_" + user_id;
+            if (!(key in data)) {
+                fetch('http://127.0.0.1:5000/create_day', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({"user-id": user_id}),
+                })
+                .then(data => {
+                    console.log('Server response:', data);
+                    alert("Welcome to a new day!");
+                })
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         startCamera(() => {
             recording = true;
             intervalId = setInterval(captureAndSend, 1000);
@@ -104,6 +159,11 @@ function stopRecording() {
         intervalId = null;
         recording = false;
         console.log("Recording stopped");
+        fetch('http://127.0.0.1:5000/end_session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({"user-id": user_id})
+        })
     }
     stopCamera(); // Also stop the camera
 }
@@ -116,7 +176,20 @@ function captureAndSend() {
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     const imageBase64 = canvas.toDataURL('image/jpeg'); // Convert to base64
 
-    sendToBackend(imageBase64);
+    // console.log(imageBase64);
+    if (first_instance) {
+        fetch('http://127.0.0.1:5000/start_session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "user-id": user_id, 
+                "image": imageBase64
+            })
+        })
+        first_instance = false;
+    } else {
+        sendToBackend(imageBase64);
+    }
 }
 
 function sendToBackend(imageBase64) {
@@ -124,8 +197,7 @@ function sendToBackend(imageBase64) {
     fetch('http://127.0.0.1:5000/process_frame', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ image: imageBase64 }),
-        mode: "no-cors"
+        body: JSON.stringify({ "user-id": user_id, image: imageBase64 })
     })
     .then(response => response.json())
     .then(data => console.log('Server response:', data))
@@ -157,10 +229,10 @@ function captureAndSendUserData() {
     }
 
     const userData = {
-        "username": username, 
-        "email": email, 
-        "gender": gender, 
-        "country": country
+        username: username, 
+        email: email, 
+        gender: gender, 
+        country: country
     };
     
     sendUserToBackend(userData);
@@ -169,11 +241,12 @@ function captureAndSendUserData() {
 function sendUserToBackend(userData) {
     
     // showNotification("Processing your registration", "Please wait...");
-    
+    console.log(JSON.stringify(userData));
     fetch('http://127.0.0.1:5000/create_user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
+        body: JSON.stringify(userData),
+        // mode: "no-cors"
     })
     
     .then(response => response.json())
@@ -188,6 +261,16 @@ function sendUserToBackend(userData) {
         }
     })
     .catch(error => console.error('Error sending user data:', error));
+
+    fetch('http://127.0.0.1:5000/get_users', {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => user_id = Array.isArray(data) ? data.length : Object.keys(data).length)
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
 }
 
 // notifications when recording and not on screen.
