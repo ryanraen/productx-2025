@@ -162,9 +162,6 @@ def get_days():
 def process_frame():
     data = request.get_json()
     user_id = data.get("user-id")
-    f = open("text.txt", "a")
-    f.write(data['image'])
-    f.close()
     temp = data['image']
     if len(temp) > 23 and temp[0:23] == "data:image/jpeg;base64,":
         temp = temp[23:]
