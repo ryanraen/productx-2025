@@ -114,17 +114,18 @@ function captureAndSend() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
     const imageBase64 = canvas.toDataURL('image/jpeg'); // Convert to base64
+
     sendToBackend(imageBase64);
 }
 
 function sendToBackend(imageBase64) {
     showNotification("You have a new message", "Go to the Messages tab to read it!");
-    fetch('/process_frame', {
+    fetch('http://127.0.0.1:5000/process_frame', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ image: imageBase64 })
+        body: JSON.stringify({ image: imageBase64 }),
+        mode: "no-cors"
     })
     .then(response => response.json())
     .then(data => console.log('Server response:', data))
@@ -132,33 +133,51 @@ function sendToBackend(imageBase64) {
 }
 
 // Send user info to back end
+function redirectToIndex(event) {
+    event.preventDefault(); // Prevent form submission
+    window.location.href = "index.html";
+}
+
+function redirectToIndex(event) {
+    event.preventDefault();
+    window.location.href = "index.html";
+}
+
 function captureAndSendUserData() {
-    console.log("Here");
     const username = document.getElementById("full_name").value;
     const email = document.getElementById("email").value;
+    const age = document.getElementById("age").value;
     const gender = document.getElementById("gender").value;
     const country = document.getElementById("country").value;
     const password = document.getElementById("password").value;
 
-    if (!username || !email || !gender || !country || !password) {
+    if (!username || !email || !age || !gender || !country || !password) {
         alert("Please fill in all fields.");
         return;
     }
 
-    const userData = {username, email, gender, country, password };
-
+    const userData = {
+        "username": username, 
+        "email": email, 
+        "gender": gender, 
+        "country": country
+    };
+    
     sendUserToBackend(userData);
 }
 
 function sendUserToBackend(userData) {
-    showNotification("Processing your registration", "Please wait...");
-
-    fetch('/create_user', {
+    
+    // showNotification("Processing your registration", "Please wait...");
+    
+    fetch('http://127.0.0.1:5000/create_user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData)
     })
+    
     .then(response => response.json())
+    
     .then(data => {
         console.log('Server response:', data);
         if (data.message) {
@@ -170,7 +189,6 @@ function sendUserToBackend(userData) {
     })
     .catch(error => console.error('Error sending user data:', error));
 }
-
 
 // notifications when recording and not on screen.
 if ("Notification" in window && "serviceWorker" in navigator) {

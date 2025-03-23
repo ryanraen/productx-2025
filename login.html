@@ -10,19 +10,13 @@
     <div class="auth-box">
         <h2>Login</h2>
         <form onsubmit="redirectToIndex(event)">
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account? <a href="register.html">Register here</a></p>
     </div>
 
-    <script>
-        function redirectToIndex(event) {
-            event.preventDefault();
-            window.location.href = "index.html";
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
