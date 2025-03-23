@@ -104,16 +104,22 @@ def detectPosture(frame):
         # Check 1: head tilt angle (front slouch)
         headTiltAngle = (calculate_angle(leftEar, leftShoulder, nose) + 
                          calculate_angle(rightEar, rightShoulder, nose))/2
+        print("HEAD CHANGE")
+        print(abs(headTiltAngle - initialData["headTiltAngle"]), headTiltAngleChangeThreshold)
         if abs(headTiltAngle - initialData["headTiltAngle"]) > headTiltAngleChangeThreshold:  # If head leans too forward
             problems.append("Bad Posture! Keep Your Head Up!")
         
         # Check 2: shoulder alignment
         shoulderTilt = abs(leftShoulder[1] - rightShoulder[1])  # Vertical difference between shoulders
+        print("SHOULDER")
+        print(abs(shoulderTilt - initialData["shoulderTilt"]), shoulderTiltChangeThreshold)
         if abs(shoulderTilt - initialData["shoulderTilt"]) > shoulderTiltChangeThreshold:  # If one shoulder is significantly lower than the other
             problems.append("Slouching Detected! Straighten Shoulders!")
         
         # Check 3: head y displacement (back slouch)
         headY = nose[1]  # Y-position of nose (higher = slouching back, lower = sitting up straight)
+        print("SLOUCH")
+        print(headY, initialData["headY"] * headSinkChangeFactorThreshold)
         if headY > initialData["headY"] * headSinkChangeFactorThreshold:  
             problems.append("Slouching Detected! Sit Upright!")
         
@@ -130,6 +136,8 @@ def detectPosture(frame):
             distanceChange = eyeDist / initialData["eyeDist"]
 
             # If the eye distance is too large => user is too close
+            print("EYE")
+            print(distanceChange, eyeDistChangeThreshold)
             if distanceChange > eyeDistChangeThreshold:
                 problems.append("Too Close! Move Back!")
                 
