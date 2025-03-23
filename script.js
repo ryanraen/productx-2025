@@ -127,3 +127,4 @@ function sendToBackend(imageBase64) {
     .then(data => console.log('Server response:', data))
     .catch(error => console.error('Error sending image:', error));
 }
+
