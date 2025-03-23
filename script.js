@@ -1,4 +1,3 @@
-/* script.js */
 document.addEventListener("DOMContentLoaded", function () {
     const ctx = document.getElementById("progressChart").getContext("2d");
     new Chart(ctx, {
@@ -59,3 +58,4 @@ function startCamera() {
 function nextStep() {
     window.location.href = "setup/how_to_sit.html";
 }
+
