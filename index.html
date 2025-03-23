@@ -5,401 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posture Tracking Dashboard</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            background-color: #f4f6f9;
-            margin: 0;
-            color: #2c3e50;
-        }
-
-        h1, h2, h3 {
-            font-weight: 600;
-            color: #34495e;
-            margin-top: 0;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 80px;
-            background: #ffffff;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-right: 1px solid #ecf0f1;
-        }
-
-        .sidebar-icon {
-            width: 70px;
-            height: 70px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 10px 0;
-            cursor: pointer;
-            border-radius: 12px;
-        }
-
-        .sidebar-icon.active {
-            background-color: #ff8800;
-        }
-
-        .sidebar-icon img {
-            width: 28px;
-            height: 28px;
-        }
-
-        .sidebar-icon.logo {
-            margin-bottom: 40px;
-        }
-
-        .sidebar-icon.logo img {
-            width: 45px;
-            height: 45px;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 20px 30px;
-            overflow-y: auto;
-            height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
-        }
-
-        .filter-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .filter-text {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin-right: 10px;
-        }
-
-        .filter-button {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 8px 15px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        /* Card Styles */
-        .card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .date-range {
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-
-        .progress-chart {
-            height: 180px;
-            position: relative;
-        }
-
-        .chart-marker {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: white;
-            border: 2px solid #ff8800;
-            border-radius: 50%;
-            top: 70px;
-            left: 50%;
-        }
-
-        .percentage-marker {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-
-        /* Two-column layout */
-        .column-container {
-            display: flex;
-            gap: 20px;
-        }
-
-        .column {
-            flex: 1;
-        }
-
-        /* Daily Progress */
-        .progress-day {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .day-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .day-date {
-            font-weight: 500;
-            margin-bottom: 3px;
-        }
-
-        .day-location {
-            font-size: 12px;
-            color: #7f8c8d;
-        }
-
-        .progress-bar-container {
-            flex: 1;
-            margin: 0 20px;
-            height: 8px;
-            background-color: #f0f0f0;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            border-radius: 4px;
-        }
-
-        .progress-good {
-            background-color: #2ecc71;
-        }
-
-        .progress-moderate {
-            background-color: #3498db;
-        }
-
-        .progress-bad {
-            background-color: #9b59b6;
-        }
-
-        .progress-value {
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        /* Weekly Chart */
-        .weekly-chart {
-            height: 170px;
-        }
-
-        .weekly-summary {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .weekly-percent {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .weekly-desc {
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-
-        .day-labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .day-label {
-            font-size: 12px;
-            color: #7f8c8d;
-            text-align: center;
-        }
-
-        /* Right Panel */
-        .right-panel {
-            width: 280px;
-            background: #ffffff;
-            padding: 20px;
-            height: 100vh;
-            box-sizing: border-box;
-            border-left: 1px solid #ecf0f1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .user-name {
-            font-size: 22px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .learn-more {
-            font-size: 12px;
-            color: #7f8c8d;
-            text-decoration: none;
-        }
-
-        .monitor-button-container {
-            background: #ffe8c3;
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .monitor-status {
-            display: flex;
-            align-items: center;
-        }
-
-        .status-icon {
-            width: 12px;
-            height: 12px;
-            background: #ff8800;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .start-button {
-            background: #0078ff;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .view-all {
-            font-size: 12px;
-            color: #7f8c8d;
-            text-decoration: none;
-        }
-
-        .challenge-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .challenge-bullet {
-            margin-right: 10px;
-        }
-
-        .challenge-text {
-            font-size: 14px;
-        }
-
-        .rank-container {
-            margin-top: 20px;
-        }
-
-        .rank-title {
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .rank-value {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
-
-        .rank-chart-container {
-            position: relative;
-            height: 120px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .donut-chart {
-            width: 100px;
-            height: 100px;
-        }
-
-        .donut-value {
-            position: absolute;
-            font-size: 28px;
-            font-weight: 600;
-        }
-
-        .today-chart {
-            margin-top: 30px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="sidebar">
         <div class="sidebar-icon logo">
-            <img src="https://via.placeholder.com/45" alt="PostureX Logo">
+            <!-- Replace with your actual logo -->
+            <img src="images/logo.png" alt="PostureX Logo">
         </div>
         <div class="sidebar-icon active">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMyA5TDEyIDIgMjEgOVYyMkMwC44MjYiLz48L3N2Zz4=" alt="Home">
+            <img src="images/home-icon.svg" alt="Home">
         </div>
         <div class="sidebar-icon">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTAgMTJhOSA5IDIiLz48L3N2Zz4=" alt="Stats">
+            <img src="images/stats-icon.svg" alt="Stats">
         </div>
         <div class="sidebar-icon">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMTVDMTMuNjU2OSAxNSAxNSAxMy42NTY5IDE1IDEyQzE1IDEwLjM0MzEgMTMuNjU2OSA5IDEyIDlDMTAuMzQzMSA5IDkgMTAuMzQzMSA5IDEyQzkgMTMuNjU2OSAxMC4zNDMxIDE1IDEyIDE1WiIgc3Ryb2tlPSIjMjkyRDMyIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xOSAxMkMxOSAxNi45NzA2IDE1LjQwMzMgMjEgMTIgMjFDOC41OTY3NCAyMSA1IDE2Ljk3MDYgNSAxMkM1IDcuMDI5NDQgOC41OTY3NCAzIDEyIDNDMTUuNDAzMyAzIDE5IDcuMDI5NDQgMTkgMTJaIiBzdHJva2U9IiMyOTJEMzIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTE4LjI0MDQgMTYuNzM2OEwyMS40OTgyIDIwIiBzdHJva2U9IiMyOTJEMzIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+" alt="Settings">
+            <img src="images/settings-icon.svg" alt="Settings">
         </div>
         <div class="sidebar-icon">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTcgN2wtMTAgMTBNMTcgMTdMNyA3IiBzdHJva2U9IiMyOTJEMzIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+" alt="Log Out">
+            <img src="images/logout-icon.svg" alt="Log Out">
         </div>
     </div>
     
@@ -425,21 +50,21 @@
                 </div>
             </div>
             <div class="progress-chart">
-                <img src="/api/placeholder/700/180" alt="Progress Chart" style="width: 100%; height: 100%; object-fit: cover;">
+                <canvas id="totalProgressChart"></canvas>
                 <div class="chart-marker"></div>
                 <div class="percentage-marker">60%</div>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 5px;">
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 13</span>
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 14</span>
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 15</span>
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 16</span>
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 17</span>
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 18</span>
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 19</span>
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 20</span>
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 21</span>
-                <span style="font-size: 12px; color: #7f8c8d;">Mar 22</span>
+            <div class="date-labels">
+                <span>Mar 13</span>
+                <span>Mar 14</span>
+                <span>Mar 15</span>
+                <span>Mar 16</span>
+                <span>Mar 17</span>
+                <span>Mar 18</span>
+                <span>Mar 19</span>
+                <span>Mar 20</span>
+                <span>Mar 21</span>
+                <span>Mar 22</span>
             </div>
         </div>
         
@@ -499,21 +124,7 @@
                     </div>
                     
                     <div class="weekly-chart">
-                        <svg width="100%" height="100%" viewBox="0 0 300 140" preserveAspectRatio="none">
-                            <!-- Chart background grid lines -->
-                            <line x1="0" y1="35" x2="300" y2="35" stroke="#f0f0f0" stroke-width="1"/>
-                            <line x1="0" y1="70" x2="300" y2="70" stroke="#f0f0f0" stroke-width="1"/>
-                            <line x1="0" y1="105" x2="300" y2="105" stroke="#f0f0f0" stroke-width="1"/>
-                            
-                            <!-- Bars for each day -->
-                            <rect x="20" y="85" width="25" height="35" fill="#e0e0e0"/>
-                            <rect x="55" y="65" width="25" height="55" fill="#ff8800"/>
-                            <rect x="90" y="35" width="25" height="85" fill="#ff8800"/>
-                            <rect x="125" y="70" width="25" height="50" fill="#e0e0e0"/>
-                            <rect x="160" y="55" width="25" height="65" fill="#ff8800"/>
-                            <rect x="195" y="85" width="25" height="35" fill="#e0e0e0"/>
-                            <rect x="230" y="85" width="25" height="35" fill="#e0e0e0"/>
-                        </svg>
+                        <canvas id="weeklyChart"></canvas>
                     </div>
                     
                     <div class="day-labels">
@@ -531,25 +142,9 @@
     </div>
     
     <div class="right-panel">
-<<<<<<< HEAD
         <div class="user-info">
             <h2 class="user-name">Cesar</h2>
             <a href="#" class="learn-more">Learn more</a>
-=======
-        <h2>Cesar</h2>
-        <div class="button-group">
-            <button id="startRecording" class="start-recording">▶ Start Monitoring</button>
-            <button id="stopRecording" class="start-recording">⏹ Stop Monitoring</button>
-        </div>
-        
-        <canvas id="canvas" style="display: none;"></canvas>
-   
-        <div class="challenge-section">
-            <h3>This Week’s Challenge:</h3>
-            <p>✔ 80% Good Posture in 10 mins</p>
-            <p>✔ 60% Good Posture in 30 mins</p>
-            <p>✔ 50% Good Posture overall</p>
->>>>>>> cb1b379b2eabfe05ed7ae6e208b17154e819b721
         </div>
         
         <div class="monitor-button-container">
@@ -557,7 +152,7 @@
                 <div class="status-icon"></div>
                 <span>Monitoring</span>
             </div>
-            <button class="start-button">Start</button>
+            <button class="start-button" id="startMonitoring">Start</button>
         </div>
         
         <div class="section-title">
@@ -572,17 +167,17 @@
         
         <div class="challenge-item">
             <span class="challenge-bullet"></span>
-            <span class="challenge-text"><span style="color: #2ecc71;">80% Good</span> Posture in 10 mins</span>
+            <span class="challenge-text"><span class="text-success">80% Good</span> Posture in 10 mins</span>
         </div>
         
         <div class="challenge-item">
             <span class="challenge-bullet"></span>
-            <span class="challenge-text"><span style="color: #2ecc71;">60% Good</span> Posture in 30 mins</span>
+            <span class="challenge-text"><span class="text-success">60% Good</span> Posture in 30 mins</span>
         </div>
         
         <div class="challenge-item">
             <span class="challenge-bullet"></span>
-            <span class="challenge-text"><span style="color: #2ecc71;">50% Good</span> Posture in overall mins</span>
+            <span class="challenge-text"><span class="text-success">50% Good</span> Posture in overall mins</span>
         </div>
         
         <div class="rank-container">
@@ -595,12 +190,7 @@
             <div class="rank-value">76 out of 100 minutes</div>
             
             <div class="rank-chart-container">
-                <div class="donut-chart">
-                    <svg width="100" height="100" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="#f0f0f0" stroke-width="10"/>
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="#ff8800" stroke-width="10" stroke-dasharray="251.2 100.5" transform="rotate(-90 50 50)"/>
-                    </svg>
-                </div>
+                <canvas id="rankChart"></canvas>
                 <div class="donut-value">76%</div>
             </div>
         </div>
@@ -613,20 +203,15 @@
             <div class="rank-value">58% Good Posture</div>
             
             <div class="rank-chart-container">
-                <div class="donut-chart">
-                    <svg width="100" height="100" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="#f0f0f0" stroke-width="10"/>
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="#ff8800" stroke-width="10" stroke-dasharray="150.72 150.96" transform="rotate(-90 50 50)"/>
-                    </svg>
-                </div>
+                <canvas id="todayChart"></canvas>
                 <div class="donut-value">58%</div>
             </div>
         </div>
+        
+        <!-- Hidden video element for posture monitoring -->
+        <canvas id="posture-canvas" style="display: none;"></canvas>
     </div>
 
-    <script>
-        // This would be where you'd add your Chart.js code
-        // to make the charts interactive
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
