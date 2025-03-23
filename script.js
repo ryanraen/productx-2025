@@ -118,7 +118,8 @@ function captureAndSend() {
 }
 
 function sendToBackend(imageBase64) {
-    fetch('/upload', {
+    showNotification("You have a new message", "Go to the Messages tab to read it!");
+    fetch('/process_frame', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image: imageBase64 })
@@ -128,3 +129,40 @@ function sendToBackend(imageBase64) {
     .catch(error => console.error('Error sending image:', error));
 }
 
+
+// notifications when recording and not on screen.
+if ("Notification" in window && "serviceWorker" in navigator) {
+    // Ask for permission to show notifications
+    Notification.requestPermission().then(function (permission) {
+      if (permission === "granted") {
+        console.log("Notification permission granted");
+      } else {
+        console.log("Notification permission denied");
+      }
+    });
+  
+    // Function to show notification
+    function showNotification(title, message) {
+      if (document.hidden) {
+        // If the tab is not visible, show notification
+        new Notification(title, {
+          body: message,
+          icon: "images/v906_19040.png",  // Replace with your icon URL
+        });
+      }
+    }
+  
+    // Check tab visibility
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        console.log("Tab is not visible");
+        // Show notification when tab is hidden
+        if (recording) {
+            showNotification("You have new activity", "Check your app for updates!");
+        }
+      } else {
+        console.log("Tab is visible");
+      }
+    });
+  
+  }
