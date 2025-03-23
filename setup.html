@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostureX - Setup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>PostureX</h2>
+        <ul>
+            <li><a href="index.html">🏠 Dashboard</a></li>
+            <li><a href="setup.html" class="active">📷 Setup Camera</a></li>
+            <li><a href="settings.html">⚙️ Settings</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <nav class="top-nav">
+            <a href="setup.html" class="active">Setup Intro</a>
+            <a href="setup\how_to_sit.html">How to Sit</a>
+            <a href="setup\tips.html">Tips</a>
+            <a href="setup\good_posture.html">Good Posture</a>
+            <a href="setup\bad_posture.html">Bad Posture</a>
+            <a href="setup\all_set.html">All Set</a>
+        </nav>
+
+        <h1>Meet PostureX!</h1>
+        <p>PostureX is an assistant to fix your posture.</p>
+        <p>It will recognize when your posture is good or when you slouch.</p>
+        <p>If you slouch, a droid will remind you to sit up.</p>
+
+        <div class="button-group">
+            <button id="startRecording">🎥 Start Recording</button>
+            <button id="stopRecording">⏹ Stop Recording</button>
+            <button onclick="nextStep()">Continue ➡</button>
+        </div>
+        
+        <canvas id="canvas" style="display: none;"></canvas>
+        <video id="camera-feed" autoplay></video>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
