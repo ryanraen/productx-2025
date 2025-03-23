@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle monitoring functionality
     const startButton = document.getElementById('startMonitoring');
-    let isMonitoring = true; // Initially shown as monitoring
+    let isMonitoring = false; // Initially shown as not monitoring
 
     startButton.addEventListener('click', function() {
         isMonitoring = !isMonitoring;
@@ -187,6 +187,8 @@ document.addEventListener('DOMContentLoaded', function() {
             monitorStatus.style.opacity = '0.5';
         }
     });
+
+    
 
     // Sidebar Active Class Logic
     const currentPage = window.location.pathname;
