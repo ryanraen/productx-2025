@@ -1,11 +1,13 @@
+<!-- File 4: tips.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Sit - PostureX</title>
+    <title>How to sit - PostureX</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -13,13 +15,63 @@
             <img src="../images/home-icon.png" alt="PostureX Logo">
         </div>
         <div class="sidebar-icon">
-            <a href="../index.html"><img src="../images/home-icon.png" alt="Home"></a>
+            <a href="../index.html"><img src="../images/dashboard.png" alt="Home"></a>
         </div>
         <div class="sidebar-icon active">
-            <a href="../setup.html"><img src="../images/stats-icon.svg" alt="Setup"></a>
+            <a href="../setup.html"><img src="../images/calibration.png" alt="Setup"></a>
         </div>
         <div class="sidebar-icon">
-            <a href="../settings.html"><img src="../images/settings-icon.svg" alt="Settings"></a>
+            <a href="../settings.html"><img src="../images/settings.png" alt="Settings"></a>
         </div>
         <div class="sidebar-icon">
-            <img src="../images/logout-icon.svg" alt="Log Out">
+            <img src="../images/logout.png" alt="Log Out">
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <nav class="top-na" style="display: flex; justify-content: center; margin-bottom: 20px; gap: 10px;">
+            <a href="../setup.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Setup Intro</a>
+            <a href="how_to_sit.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: orange; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">How to Sit</a>
+            <a href="tips.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Tips</a>
+            <a href="good_posture.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Good Posture</a>
+            <a href="bad_posture.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Bad Posture</a>
+            <a href="all_set.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">All Set</a>
+        </nav>
+        <h1>Step 2: How to sit</h1>
+
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">How to sit well</h2>
+            </div>
+            
+            <div class="setup-content">
+                <ul>
+                    <li>Sitting with good posture is dependent on many factors. </li>
+
+                    <li>  Position your computer screen level with your eyeline so that you don't need to tilt your head forward to look at it.</li>
+                        
+                        <li> If using a laptop, a stand and separate keyboard and mouse can help to prevent you from hunching over forwards.</li>
+                        
+                            <li> Sit your hips to the back of the chair and keep your pelvis neutral to avoid rounding the lower back.</li>
+                        
+                                <li> Keep your shoulders relaxed and down.</li>
+                </ul>
+                
+                <p>Now let's set up PostureX to recognize your specific posture patterns.</p>
+            </div>
+           
+            <div class="monitor-button-container">
+                <div class="monitor-status">
+                    <div class="status-icon"></div>
+                    <span>Continue to next step</span>
+                </div>
+                <button class="start-button" onclick="window.location.href='tips.html'">Continue</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../script.js"></script>
+</body>
+</html>
