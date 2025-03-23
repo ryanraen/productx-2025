@@ -127,6 +127,21 @@ h1, h2, h3 {
     margin: 0;
 }
 
+.card-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#camera-feed {
+    width: 100%;
+    max-width: 500px;
+    height: 375px;
+    border-radius: 8px;
+    background: rgb(83, 83, 83);
+}
+
 .date-range {
     font-size: 14px;
     color: #7f8c8d;

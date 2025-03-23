@@ -49,22 +49,36 @@
                 <p>Make sure the camera can see your head and shoulders.</p>
                 <p>When you're ready, press the button to begin.</p>
                 <p>Feel free to move around a little.</p>
-                
-                <div class="camera-container">
-                    <video id="camera-feed" autoplay></video>
-                    <canvas id="posture-canvas" style="display: none;"></canvas>
-                </div>
             </div>
             
-            <div class="action-button-container">
+            <div class="monitor-button-container">
+                <div class="monitor-status">
+                    <div class="status-icon"></div>
+                    <span>Start recording your posture</span>
+                </div>
                 <button class="start-button" id="startMonitoring">Start Recording</button>
-                <!-- <button class="start-button" id="stopGoodPostureRecording" style="display: none;">Stop Recording</button> -->
+            </div>
+
+            <div class="monitor-button-container">
+                <div class="monitor-status">
+                    <div class="status-icon"></div>
+                    <span>Continue to next step</span>
+                </div>
                 <button class="start-button" onclick="window.location.href='bad_posture.html'">Continue</button>
             </div>
         </div>
-    </div>
-    
 
+        <!-- Video Feed Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Camera Feed</h2>
+            </div>
+            <div class="card-video">
+                    <video id="camera-feed" autoplay></video>
+                    <canvas id="posture-canvas" style="display: none;"></canvas>
+            </div>
+        </div>
+    </div>
 
     <script src="../video.js"></script>
 </body>

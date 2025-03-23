@@ -49,17 +49,33 @@
                 <p>Slouch down in your chair.</p>
                 <p>Relax and be lazy.</p>
                 <p>Now press the button to begin.</p>
-                
-                <div class="camera-container">
-                    <video id="camera-feed" autoplay></video>
-                    <canvas id="posture-canvas" style="display: none;"></canvas>
-                </div>
             </div>
             
-            <div class="action-button-container">
-                <button class="start-button" id="startMonitoring">Start</button>
-                <!-- <button class="start-button" id="stopBadPostureRecording" style="display: none;">Stop Recording</button> -->
+            <div class="monitor-button-container">
+                <div class="monitor-status">
+                    <div class="status-icon"></div>
+                    <span>Start recording your posture</span>
+                </div>
+                <button class="start-button" id="startMonitoring">Start Recording</button>
+            </div>
+
+            <div class="monitor-button-container">
+                <div class="monitor-status">
+                    <div class="status-icon"></div>
+                    <span>Continue to next step</span>
+                </div>
                 <button class="start-button" onclick="window.location.href='all_set.html'">Continue</button>
+            </div>
+        </div>
+
+        <!-- Video Feed Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Camera Feed</h2>
+            </div>
+            <div class="card-video">
+                    <video id="camera-feed" autoplay></video>
+                    <canvas id="posture-canvas" style="display: none;"></canvas>
             </div>
         </div>
     </div>
