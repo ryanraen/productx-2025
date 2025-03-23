@@ -1,38 +1,61 @@
+<!-- File 1: all-set.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Set</title>
+    <title>All Set - PostureX</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="sidebar">
-        <h2>PostureX</h2>
-        <ul>
-            <li><a href="../index.html">🏠 Dashboard</a></li>
-            <li><a href="../setup.html">📷 Setup Camera</a></li>
-            <li><a href="../settings.html">⚙️ Settings</a></li>
-        </ul>
-    </div>
-
-    <div class="main-content">
-        <nav class="top-nav">
-            <a href="../setup.html">Setup Intro</a>
-            <a href="how_to_sit.html">How to Sit</a>
-            <a href="tips.html">Tips</a>
-            <a href="good_posture.html">Good Posture</a>
-            <a href="bad_posture.html">Bad Posture</a>
-            <a href="all_set.html" class="active">All Set</a>
-        </nav>
-
-        <h1>All Set!</h1>
-        <p>Great job! Your posture tracking setup is complete.</p>
-        <p>You're now ready to start monitoring and improving your posture.</p>
-
-        <div class="button-group">
-            <button onclick="window.location.href='../index.html'">Go to Dashboard</button>
+        <div class="sidebar-icon logo">
+            <img src="../images/home-icon.png" alt="PostureX Logo">
+        </div>
+        <div class="sidebar-icon">
+            <a href="../index.html"><img src="../images/dashboard.png" alt="Home"></a>
+        </div>
+        <div class="sidebar-icon active">
+            <a href="../setup.html"><img src="../images/calibration.png" alt="Setup"></a>
+        </div>
+        <div class="sidebar-icon">
+            <a href="../settings.html"><img src="../images/settings.png" alt="Settings"></a>
+        </div>
+        <div class="sidebar-icon">
+            <img src="../images/logout.png" alt="Log Out">
         </div>
     </div>
+    
+    <div class="main-content">
+        <nav class="top-na" style="display: flex; justify-content: center; margin-bottom: 20px; gap: 10px;">
+            <a href="../setup.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Setup Intro</a>
+            <a href="how_to_sit.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">How to Sit</a>
+            <a href="tips.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Tips</a>
+            <a href="good_posture.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Good Posture</a>
+            <a href="bad_posture.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Bad Posture</a>
+            <a href="all_set.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: orange; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">All Set</a>
+        </nav>
+            <h1>All Set</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Great job! Your posture tracking setup is complete.</h2>
+            </div>
+            
+            <div class="setup-content">
+                <p>You're now ready to start monitoring and improving your posture.</p>
+                <p>Your configuration has been saved and PostureX will begin working immediately.</p>
+            </div>
+            
+            <div class="action-button-container">
+                <button class="start-button" onclick="window.location.href='../index.html'">Go to Dashboard</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="../script.js"></script>
 </body>
 </html>

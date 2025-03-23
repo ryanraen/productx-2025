@@ -1,58 +1,79 @@
+<!-- File 4: tips.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostureX - Tips</title>
+    <title>Tips - PostureX</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="sidebar">
         <div class="sidebar-icon logo">
-            <img src="images/home-icon.png" alt="PostureX Logo">
+            <img src="../images/home-icon.png" alt="PostureX Logo">
+            <span class="tooltip">PostureX</span>
         </div>
         <div class="sidebar-icon">
-            <img src="images/home-icon.png" alt="Home">
+            <a href="../index.html"><img src="../images/dashboard.png" alt="Home"></a>
+            <span class="tooltip">Dashboard</span>
+        </div>
+        <div class="sidebar-icon active">
+            <a href="../setup.html"><img src="../images/calibration.png" alt="Setup"></a>
+            <span class="tooltip">Setup</span>
         </div>
         <div class="sidebar-icon">
-            <img src="images/stats-icon.svg" alt="Stats">
+            <a href="../settings.html"><img src="../images/settings.png" alt="Settings"></a>
+            <span class="tooltip">Settings</span>
         </div>
         <div class="sidebar-icon">
-            <img src="images/settings-icon.svg" alt="Settings">
-        </div>
-        <div class="sidebar-icon">
-            <img src="images/logout-icon.svg" alt="Log Out">
+            <img src="../images/logout.png" alt="Log Out">
+            <span class="tooltip">Log Out</span>
         </div>
     </div>
     
     <div class="main-content">
-        <div class="header">
-            <div class="nav-container">
-                <a href="setup.html">Setup Intro</a>
-                <a href="how_to_sit.html">How to sit</a>
-                <a href="tips.html" class="active">Tips</a>
-                <a href="good_posture.html">Good posture</a>
-                <a href="bad_posture.html">Bad posture</a>
-                <a href="all_set.html">All set</a>
-            </div>
-        </div>
+
+        <nav class="top-na" style="display: flex; justify-content: center; margin-bottom: 20px; gap: 10px;">
+            <a href="../setup.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Setup Intro</a>
+            <a href="how_to_sit.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">How to Sit</a>
+            <a href="tips.html" style="text-decoration: none; color: #2b3f5c; background-color: orange; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Tips</a>
+            <a href="good_posture.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Good Posture</a>
+            <a href="bad_posture.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Bad Posture</a>
+            <a href="all_set.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">All Set</a>
+        </nav>
+        <h1>Step 3: Tips</h1>
         
-        <div class="content-container">
-            <h1>Meet PostureX!</h1>
-            
-            <div class="instructions-container">
-                <p>PostureX an assistant to fix your posture</p>
-                
-                <p>PostureX will recognize when your posture is good or when you slouch.</p>
-                
-                <p>If you slouch, the driod will appear in the corner of your screen to remind you to sit up</p>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Tips for Maintaining Good Posture</h2>
             </div>
             
-            <div class="action-button-container">
+            <div class="setup-content">
+                <ul>
+                    <li>Take regular breaks - stand up and stretch every 30 minutes</li>
+                    <li>Ensure your monitor is at eye level</li>
+                    <li>Keep your feet flat on the floor</li>
+                    <li>Invest in an ergonomic chair if possible</li>
+                    <li>Keep your keyboard and mouse close to avoid reaching</li>
+                    <li>Use PostureX consistently for the best results</li>
+                </ul>
+                
+                <p>Now let's set up PostureX to recognize your specific posture patterns.</p>
+            </div>
+            
+            <div class="monitor-button-container">
+                <div class="monitor-status">
+                    <div class="status-icon"></div>
+                    <span>Continue to next step</span>
+                </div>
                 <button class="start-button" onclick="window.location.href='good_posture.html'">Continue</button>
             </div>
         </div>
     </div>
+
+
+    <script src="../script.js"></script>
 </body>
 </html>

@@ -187,4 +187,24 @@ document.addEventListener('DOMContentLoaded', function() {
             monitorStatus.style.opacity = '0.5';
         }
     });
+
+    // Sidebar Active Class Logic
+    const currentPage = window.location.pathname;
+    const homeLink = document.getElementById('home-link');
+    const setupLink = document.getElementById('setup-link');
+    const settingsLink = document.getElementById('settings-link');
+
+    // Reset active class for all links
+    homeLink.classList.remove('active');
+    setupLink.classList.remove('active');
+    settingsLink.classList.remove('active');
+
+    // Add the active class to the current page link
+    if (currentPage.includes('index.html')) {
+        homeLink.classList.add('active');
+    } else if (currentPage.includes('setup.html')) {
+        setupLink.classList.add('active');
+    } else if (currentPage.includes('settings.html')) {
+        settingsLink.classList.add('active');
+    }
 });

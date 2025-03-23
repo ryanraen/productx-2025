@@ -4,27 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posture Tracker - Settings</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Sidebar -->
     <div class="sidebar">
-        <h2>PostureX</h2>
-        <ul>
-            <li><a href="index.html">🏠 Dashboard</a></li>
-            <li><a href="setup.html">📷 Setup Camera</a></li>
-            <li><a href="settings.html">⚙️ Settings</a></li>
-        </ul>
+        <div class="sidebar-icon logo">
+            <img src="images/home-icon.png" alt="PostureX Logo">
+        </div>
+        <div class="sidebar-icon">
+            <a href="index.html"><img src="images/dashboard.png" alt="Home"></a>
+        </div>
+        <div class="sidebar-icon">
+            <a href="setup.html"><img src="images/calibration.png" alt="Setup"></a>
+        </div>
+        <div class="sidebar-icon active" >
+            <a href="settings.html"><img src="images/settings.png" alt="Settings"></a>
+        </div>
+        <div class="sidebar-icon">
+            <img src="images/logout.png" alt="Log Out">
+        </div>
     </div>
     
+    <!-- Main Content -->
     <div class="main-content">
-        <h2>Settings</h2>
-        <label for="notification">Enable Notifications</label>
-        <input type="checkbox" id="notification">
+        <div class="header">
+            <h1>Settings</h1>
+        </div>
         
-        <label for="theme">Dark Mode</label>
-        <input type="checkbox" id="theme">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Notification Preferences</h2>
+            </div>
+            <div class="settings-option">
+                <label for="notification">Enable Notifications</label>
+                <input type="checkbox" id="notification">
+            </div>
+        </div>
         
-        <button class="save-settings">Save Changes</button>
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Appearance</h2>
+            </div>
+            <div class="settings-option">
+                <label for="theme">Dark Mode</label>
+                <input type="checkbox" id="theme">
+            </div>
+        </div>
+        
+        <button class="start-button">Save Changes</button>
+    </div>
+
+    <!-- Right Panel (optional based on your design) -->
+    <div class="right-panel">
+        <div class="user-info">
+            <h2 class="user-name">Your Account</h2>
+            <a href="#" class="learn-more">Profile</a>
+        </div>
+        
+        <div class="section-title">
+            <span>Account Settings</span>
+            <a href="#" class="view-all">View all</a>
+        </div>
+        
+        <div class="challenge-item">
+            <div class="challenge-bullet">•</div>
+            <div class="challenge-text">Change password</div>
+        </div>
+        
+        <div class="challenge-item">
+            <div class="challenge-bullet">•</div>
+            <div class="challenge-text">Privacy settings</div>
+        </div>
+        
+        <div class="challenge-item">
+            <div class="challenge-bullet">•</div>
+            <div class="challenge-text">Notification preferences</div>
+        </div>
     </div>
 
     <script src="script.js"></script>

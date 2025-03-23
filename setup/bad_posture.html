@@ -1,47 +1,69 @@
+<!-- File 2: bad_posture.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bad Posture</title>
+    <title>Bad Posture - PostureX</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="sidebar">
-        <h2>PostureX</h2>
-        <ul>
-            <li><a href="..\index.html">🏠 Dashboard</a></li>
-            <li><a href="..\setup.html">📷 Setup Camera</a></li>
-            <li><a href="..\settings.html">⚙️ Settings</a></li>
-        </ul>
-    </div>
-
-    <div class="main-content">
-        <nav class="top-nav">
-            <a href="../setup.html">Setup Intro</a>
-            <a href="how_to_sit.html">How to Sit</a>
-            <a href="tips.html">Tips</a>
-            <a href="good_posture.html">Good Posture</a>
-            <a href="bad_posture.html" class="active">Bad Posture</a>
-            <a href="all_set.html">All Set</a>
-        </nav>
-
-        <h1>Bad Posture</h1>
-        <p>That was great!</p>
-        <p>Now, we need to see you slouching.</p>
-        <p>Slouch down in the chair.</p>
-        <p>Relax and be lazy.</p>
-        <p>Now press the button to begin.</p>
-
-        <div class="button-group">
-            <button id="startRecording">🎥 Start Recording</button>
-            <button id="stopRecording">⏹ Stop Recording</button>
-            <button onclick="window.location.href='all_set.html'">Next ➡</button>
+        <div class="sidebar-icon logo">
+            <img src="../images/home-icon.png" alt="PostureX Logo">
         </div>
-        
-        <canvas id="canvas" style="display: none;"></canvas>
-        <video id="camera-feed" autoplay></video>
+        <div class="sidebar-icon">
+            <a href="../index.html"><img src="../images/dashboard.png" alt="Home"></a>
+        </div>
+        <div class="sidebar-icon active">
+            <a href="../setup.html"><img src="../images/calibration.png" alt="Setup"></a>
+        </div>
+        <div class="sidebar-icon">
+            <a href="../settings.html"><img src="../images/settings.png" alt="Settings"></a>
+        </div>
+        <div class="sidebar-icon">
+            <img src="../images/logout.png" alt="Log Out">
+        </div>
     </div>
+    
+    <div class="main-content">
+        <nav class="top-na" style="display: flex; justify-content: center; margin-bottom: 20px; gap: 10px;">
+            <a href="../setup.html" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Setup Intro</a>
+            <a href="how_to_sit.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">How to Sit</a>
+            <a href="tips.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Tips</a>
+            <a href="good_posture.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Good Posture</a>
+            <a href="bad_posture.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: orange; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Bad Posture</a>
+            <a href="all_set.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">All Set</a>
+        </nav>
+            <h1>Step 5: Bad Posture</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Now, let's record your bad posture</h2>
+            </div>
+            
+            <div class="setup-content">
+                <p>That was great! Now, we need to see you slouching.</p>
+                <p>Slouch down in your chair.</p>
+                <p>Relax and be lazy.</p>
+                <p>Now press the button to begin.</p>
+                
+                <div class="camera-container">
+                    <video id="camera-feed" autoplay></video>
+                    <canvas id="posture-canvas" style="display: none;"></canvas>
+                </div>
+            </div>
+            
+            <div class="action-button-container">
+                <button class="start-button" id="startBadPostureRecording">Start Recording</button>
+                <button class="start-button" id="stopBadPostureRecording" style="display: none;">Stop Recording</button>
+                <button class="start-button" onclick="window.location.href='all_set.html'">Continue</button>
+            </div>
+        </div>
+    </div>
+
 
     <script src="../script.js"></script>
 </body>

@@ -4,43 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PostureX - Setup</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Sidebar -->
     <div class="sidebar">
-        <h2>PostureX</h2>
-        <ul>
-            <li><a href="index.html">🏠 Dashboard</a></li>
-            <li><a href="setup.html" class="active">📷 Setup Camera</a></li>
-            <li><a href="settings.html">⚙️ Settings</a></li>
-        </ul>
-    </div>
-
-    <div class="main-content">
-        <nav class="top-nav">
-            <a href="setup.html" class="active">Setup Intro</a>
-            <a href="setup\how_to_sit.html">How to Sit</a>
-            <a href="setup\tips.html">Tips</a>
-            <a href="setup\good_posture.html">Good Posture</a>
-            <a href="setup\bad_posture.html">Bad Posture</a>
-            <a href="setup\all_set.html">All Set</a>
-        </nav>
-
-        <h1>Meet PostureX!</h1>
-        <p>PostureX is an assistant to fix your posture.</p>
-        <p>It will recognize when your posture is good or when you slouch.</p>
-        <p>If you slouch, a droid will remind you to sit up.</p>
-
-        <div class="button-group">
-            <button id="startRecording">🎥 Start Recording</button>
-            <button id="stopRecording">⏹ Stop Recording</button>
-            <button onclick="nextStep()">Continue ➡</button>
+        <div class="sidebar-icon logo">
+            <img src="images/home-icon.png" alt="PostureX Logo">
         </div>
-        
-        <canvas id="canvas" style="display: none;"></canvas>
-        <video id="camera-feed" autoplay></video>
+        <div class="sidebar-icon">
+            <a href="index.html"><img src="images/dashboard.png" alt="Home"></a>
+        </div>
+        <div class="sidebar-icon active">
+            <a href="setup.html"><img src="images/calibration.png" alt="Setup"></a>
+        </div>
+        <div class="sidebar-icon">
+            <a href="settings.html"><img src="images/settings.png" alt="Settings"></a>
+        </div>
+        <div class="sidebar-icon">
+            <img src="images/logout.png" alt="Log Out">
+        </div>
     </div>
 
+    <!-- Main Content -->
+    <div class="main-content">
+        <nav class="top-na" style="display: flex; justify-content: center; margin-bottom: 20px; gap: 10px;">
+            <a href="setup.html" style="text-decoration: none; color: #2b3f5c; background-color: orange; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Setup Intro</a>
+            <a href="setup/how_to_sit.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">How to Sit</a>
+            <a href="setup/tips.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Tips</a>
+            <a href="setup/good_posture.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Good Posture</a>
+            <a href="setup/bad_posture.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">Bad Posture</a>
+            <a href="setup/all_set.html" class="active" style="text-decoration: none; color: #2b3f5c; background-color: whitesmoke; padding: 10px 15px; border-radius: 5px; transition: 0.3s; font-weight: bold;">All Set</a>
+        </nav>
+            <h1>Step 1: Introduction to PostureX!</h1>
+            <div class="filter-container">
+                <div class="filter-button">
+                </div>
+        </div>
+
+        <!-- Setup Instructions Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Setup Instructions</h2>
+            </div>
+            <div class="card-content">
+                <p>PostureX is an assistant to fix your posture.</p>
+                <p>It will recognize when your posture is good or when you slouch.</p>
+                <p>If you slouch, a notification message will remind you to sit up.</p>
+                <p>In this step, we'll help you set up PostureX to recognize your posture patterns.</p>
+                <p>Make sure you're seated properly in front of the camera, and follow the next steps.</p>
+            </div>
+
+            <!-- <div class="monitor-button-container">
+                <div class="monitor-status">
+                    <div class="status-icon"></div>
+                    <span>Start recording your posture</span>
+                </div>
+                <button class="start-button" id="startRecording">Start Recording</button>
+            </div> -->
+        </div>
+
+        <!-- Video Feed Card -->
+        <!-- <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Camera Feed</h2>
+            </div>
+            <div class="card-content">
+                <div class="progress-chart">
+                    <video id="camera-feed" autoplay></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                </div>
+            </div> -->
+            
+            <div class="monitor-button-container">
+                <div class="monitor-status">
+                    <div class="status-icon"></div>
+                    <span>Continue to next step</span>
+                </div>
+                <button class="start-button" onclick="window.location.href='setup/how_to_sit.html'">Continue</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
