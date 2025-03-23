@@ -89,7 +89,7 @@ let yyyy = today.getFullYear();
 
 let first_instance;
 
-today = mm + '-' + dd + '-' + yyyy;
+today = yyyy + '-' + mm + '-' + dd;
 
 document.getElementById('startRecording').addEventListener('click', startRecording);
 document.getElementById('stopRecording').addEventListener('click', stopRecording);

@@ -16,7 +16,7 @@ users = {
         "email": "mister46@gmail.com", 
         "gender": "male", 
         "country": "United States", 
-        "active": True
+        "active": True,
         # "headTiltAngle": 10.28,
         # "headY": 0.0254,
         # "shoulderTilt": 0.1162
@@ -26,7 +26,7 @@ users = {
         "email": "bankofenglandgov@hotmail.com", 
         "gender": "male", 
         "country": "United Kingdom",
-        "active": False
+        "active": False,
         # "headTiltAngle": 9.57,
         # "headY": 0.0302,
         # "shoulderTilt": 0.0998
@@ -36,7 +36,7 @@ users = {
         "email": "c.sheinbaum@gmail.com", 
         "gender": "female", 
         "country": "Mexico", 
-        "active": True
+        "active": True,
         # "headTiltAngle": 10.59,
         # "headY": 0.0232,
         # "shoulderTilt": 0.1076
@@ -122,6 +122,7 @@ def start_session():
             temp = temp[23:]
         image = np.frombuffer(base64.b64decode(temp), dtype=np.uint8)
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+        # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         calibration = posture.calibrate(image)
         users[user_id].update(calibration)
         return jsonify({"message": f"Recording for user {user_id} started", "active": True}), 200
@@ -170,6 +171,7 @@ def process_frame():
     image = np.frombuffer(base64.b64decode(temp), dtype=np.uint8)
     # print(image)
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     # print(image)
     feedback = posture.detectPosture(image)
     day_id = str(date.today()) + "_" + str(user_id)
