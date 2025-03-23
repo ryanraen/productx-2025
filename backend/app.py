@@ -2,7 +2,6 @@ import base64
 from flask import Flask, request, jsonify
 import cv2
 import numpy as np
-import mediapipe as mp
 from datetime import date
 
 import posture
@@ -15,30 +14,30 @@ users = {
         "email": "mister46@gmail.com", 
         "gender": "male", 
         "country": "United States", 
-        "active": True,
-        "headTiltAngle": 10.28,
-        "headY": 0.0254,
-        "shoulderTilt": 0.1162
+        "active": True
+        # "headTiltAngle": 10.28,
+        # "headY": 0.0254,
+        # "shoulderTilt": 0.1162
     },
     2: {
         "username": "markcarney60",
         "email": "bankofenglandgov@hotmail.com", 
         "gender": "male", 
         "country": "United Kingdom",
-        "active": False,
-        "headTiltAngle": 9.57,
-        "headY": 0.0302,
-        "shoulderTilt": 0.0998
+        "active": False
+        # "headTiltAngle": 9.57,
+        # "headY": 0.0302,
+        # "shoulderTilt": 0.0998
     },
     3: {
         "username": "claudia.sheinbaum",
         "email": "c.sheinbaum@gmail.com", 
         "gender": "female", 
         "country": "Mexico", 
-        "active": True,
-        "headTiltAngle": 10.59,
-        "headY": 0.0232,
-        "shoulderTilt": 0.1076
+        "active": True
+        # "headTiltAngle": 10.59,
+        # "headY": 0.0232,
+        # "shoulderTilt": 0.1076
     }
 }
 
@@ -71,10 +70,6 @@ def create_user():
     data = request.get_json()
     new_id = max(users.keys(), default=0) + 1
 
-    image = np.frombuffer(base64.b64decode(data["image"]), dtype=np.uint8)
-    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-    calibration = posture.calibrate(image)
-
     users[new_id] = {
         "username": data["username"],
         "email": data["email"],
@@ -82,8 +77,6 @@ def create_user():
         "country": data["country"],
         "active": False
     }
-
-    users[new_id].update(calibration)
 
     return jsonify({"message": "User created", "user_id": new_id, "users": users}), 201
 
@@ -120,7 +113,11 @@ def start_session():
 
     if user_id in users.keys():
         users[user_id]["active"] = True
-        return jsonify({"message": f"Recording for user {user_id} started", "status": True}), 200
+        image = np.frombuffer(base64.b64decode(data["image"]), dtype=np.uint8)
+        image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+        calibration = posture.calibrate(image)
+        users[user_id].update(calibration)
+        return jsonify({"message": f"Recording for user {user_id} started", "active": True}), 200
     return jsonify({"error": "User not found", "users": users}), 404
 
 
@@ -130,8 +127,14 @@ def end_session():
     user_id = data.get("user-id")
 
     if user_id in users.keys():
-        users[user_id]["status"] = False
-        return jsonify({"message": f"Recording for user {user_id} ended", "status": False}), 200
+        users[user_id]["active"] = False
+        if "headTiltAngle" in users.keys():
+            del users[user_id]["headTiltAngle"]
+        if "headY" in users.keys():
+            del users[user_id]["headY"]
+        if "shoulderTilt" in users.keys():
+            del users[user_id]["shoulderTilt"]
+        return jsonify({"message": f"Recording for user {user_id} ended", "active": False}), 200
     return jsonify({"error": "User not found", "users": users}), 404
 
 
@@ -165,7 +168,7 @@ def process_frame():
         days[day_id]["back-slouch-time"] += 1
     if "Too Close! Move Back!" in feedback:
         days[day_id]["face-close-time"] += 1
-    return jsonify({"feedback": feedback, "days": days})
+    return jsonify({"feedback": feedback})
 
 
 if __name__ == '__main__':
