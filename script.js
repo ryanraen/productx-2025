@@ -193,14 +193,20 @@ function captureAndSend() {
 }
 
 function sendToBackend(imageBase64) {
-    showNotification("You have a new message", "Go to the Messages tab to read it!");
+    // showNotification("You have a new message", "Go to the Messages tab to read it!");
     fetch('http://127.0.0.1:5000/process_frame', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ "user-id": user_id, image: imageBase64 })
     })
     .then(response => response.json())
-    .then(data => console.log('Server response:', data))
+    .then(data => {
+        console.log('Server response:', data["feedback"])
+        // showNotification("Posture Alert", data["feedback"]);
+        if (data["feedback"] != [] && data["feedback"] != "" && data["feedback"].length > 0) {
+            showNotification("Posture Alert", data["feedback"]);
+        }
+    })
     .catch(error => console.error('Error sending image:', error));
 }
 
@@ -286,26 +292,23 @@ if ("Notification" in window && "serviceWorker" in navigator) {
   
     // Function to show notification
     function showNotification(title, message) {
-      if (document.hidden) {
-        // If the tab is not visible, show notification
         new Notification(title, {
           body: message,
-          icon: "images/v906_19040.png",  // Replace with your icon URL
+        //   icon: "images/v906_19040.png",  // Replace with your icon URL
         });
-      }
     }
   
     // Check tab visibility
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        console.log("Tab is not visible");
-        // Show notification when tab is hidden
-        if (recording) {
-            showNotification("You have new activity", "Check your app for updates!");
-        }
-      } else {
-        console.log("Tab is visible");
-      }
-    });
+    // document.addEventListener("visibilitychange", function () {
+    //   if (document.hidden) {
+    //     console.log("Tab is not visible");
+    //     // Show notification when tab is hidden
+    //     if (recording) {
+    //         showNotification("You have new activity", "Check your app for updates!");
+    //     }
+    //   } else {
+    //     console.log("Tab is visible");
+    //   }
+    // });
   
   }
