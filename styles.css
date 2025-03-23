@@ -600,4 +600,121 @@ h1, h2 {
     border-style: solid;
     border-color: transparent #34495e transparent transparent;
 }
+
+}
+
+/* Full-page centered layout */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #ecf0f1, #d5dbdb);
+    padding: 20px;
+}
+
+/* Authentication card (login/register box) */
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Title styling */
+.auth-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+/* Input group container */
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Label styling */
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #7F8C8D;
+    margin-bottom: 6px;
+}
+
+/* Input field styling */
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+/* Input focus effect */
+.input-group input:focus {
+    border-color: #2980b9;
+    outline: none;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.2);
+}
+
+/* Authentication button */
+.auth-button {
+    width: 100%;
+    padding: 12px;
+    background: #ff801e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect for the button */
+.auth-button:hover {
+    background: #21618c;
+    transform: scale(1.02);
+}
+
+/* Authentication footer (links) */
+.auth-footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #7F8C8D;
+}
+
+/* Authentication links */
+.auth-footer a {
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Hover effect for links */
+.auth-footer a:hover {
+    color: #21618c;
+    text-decoration: underline;
 }
