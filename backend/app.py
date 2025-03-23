@@ -1,5 +1,6 @@
 import base64
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import cv2
 import numpy as np
 from datetime import date
@@ -7,6 +8,7 @@ from datetime import date
 import posture
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 users = {
     1: {
@@ -65,8 +67,10 @@ days = {
     }
 }
 
-@app.route("/create_user", methods = ['POST'])
+@app.route("/create_user", methods = ["POST"])
 def create_user():
+    if (request.content_type != 'application/json'):
+        print(request.content_type)
     data = request.get_json()
     new_id = max(users.keys(), default=0) + 1
 
@@ -80,7 +84,7 @@ def create_user():
 
     return jsonify({"message": "User created", "user_id": new_id, "users": users}), 201
 
-@app.route("/get_users", methods = ['GET'])
+@app.route("/get_users", methods = ["GET"])
 def get_users():
     return users
 
@@ -111,9 +115,12 @@ def start_session():
     data = request.get_json()
     user_id = data.get("user-id")
 
+    temp = data["image"]
     if user_id in users.keys():
         users[user_id]["active"] = True
-        image = np.frombuffer(base64.b64decode(data["image"]), dtype=np.uint8)
+        if len(temp) > 23 and temp[0:23] == "data:image/jpeg;base64,":
+            temp = temp[23:]
+        image = np.frombuffer(base64.b64decode(temp), dtype=np.uint8)
         image = cv2.imdecode(image, cv2.IMREAD_COLOR)
         calibration = posture.calibrate(image)
         users[user_id].update(calibration)
@@ -152,10 +159,18 @@ def get_days():
 
 @app.route('/process_frame', methods=['POST'])
 def process_frame():
-    data = request.json
+    data = request.get_json()
     user_id = data.get("user-id")
-    image = np.frombuffer(base64.b64decode(data["image"]), dtype=np.uint8)
+    f = open("text.txt", "a")
+    f.write(data['image'])
+    f.close()
+    temp = data['image']
+    if len(temp) > 23 and temp[0:23] == "data:image/jpeg;base64,":
+        temp = temp[23:]
+    image = np.frombuffer(base64.b64decode(temp), dtype=np.uint8)
+    # print(image)
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+    # print(image)
     feedback = posture.detectPosture(image)
     day_id = str(date.today()) + "_" + str(user_id)
     if not feedback:
