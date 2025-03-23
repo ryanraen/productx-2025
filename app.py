@@ -165,7 +165,7 @@ def process_frame():
         days[day_id]["back-slouch-time"] += 1
     if "Too Close! Move Back!" in feedback:
         days[day_id]["face-close-time"] += 1
-    return jsonify({"feedback": feedback, "days": days})
+    return jsonify({"feedback": feedback})
 
 
 if __name__ == '__main__':
