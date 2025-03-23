@@ -9,7 +9,7 @@
 <body class="auth-container">
     <div class="auth-box">
         <h2>Register</h2>
-        <form onsubmit="redirectToIndex(event)">
+        <form onsubmit="redirectToIndex(event); captureAndSendUserData();">
             <input type="text" name="full_name" placeholder="Full Name" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
@@ -32,5 +32,6 @@
             window.location.href = "index.html";
         }
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

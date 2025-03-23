@@ -49,6 +49,8 @@ function nextStep() {
     window.location.href = "setup/how_to_sit.html";
 }
 
+
+
 // Video fetching
 const video = document.getElementById('camera-feed');
 const canvas = document.getElementById('canvas');
@@ -127,6 +129,46 @@ function sendToBackend(imageBase64) {
     .then(response => response.json())
     .then(data => console.log('Server response:', data))
     .catch(error => console.error('Error sending image:', error));
+}
+
+// Send user info to back end
+function captureAndSendUserData() {
+    console.log("Here");
+    const username = document.getElementById("full_name").value;
+    const email = document.getElementById("email").value;
+    const gender = document.getElementById("gender").value;
+    const country = document.getElementById("country").value;
+    const password = document.getElementById("password").value;
+
+    if (!username || !email || !gender || !country || !password) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    const userData = {username, email, gender, country, password };
+
+    sendUserToBackend(userData);
+}
+
+function sendUserToBackend(userData) {
+    showNotification("Processing your registration", "Please wait...");
+
+    fetch('/create_user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Server response:', data);
+        if (data.message) {
+            alert("Registration successful!");
+            window.location.href = "index.html"; // Redirect to the main page
+        } else {
+            alert("Registration failed: " + data.error);
+        }
+    })
+    .catch(error => console.error('Error sending user data:', error));
 }
 
 

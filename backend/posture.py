@@ -156,38 +156,38 @@ def renderMesh(image):
             )
         
 
-print("📷 Position yourself at a comfortable distance with good posture. Calibration starts in 3 seconds...")
-time.sleep(3)  # Give user time to position themselves
+# print("📷 Position yourself at a comfortable distance with good posture. Calibration starts in 3 seconds...")
+# time.sleep(3)  # Give user time to position themselves
 
-# Webcam video capture
-cap = cv2.VideoCapture(0)
-if not cap.isOpened():
-    print("Cannot open camera")
-    exit()
+# # Webcam video capture
+# cap = cv2.VideoCapture(0)
+# if not cap.isOpened():
+#     print("Cannot open camera")
+#     exit()
 
-while cap.isOpened():
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-    # if frame is read correctly ret is True
-    if not ret:
-        print("Can't receive frame (stream end?). Exiting ...")
-        break
+# while cap.isOpened():
+#     # Capture frame-by-frame
+#     ret, frame = cap.read()
+#     # if frame is read correctly ret is True
+#     if not ret:
+#         print("Can't receive frame (stream end?). Exiting ...")
+#         break
     
-    frame = cv2.flip(frame, 1)
+#     frame = cv2.flip(frame, 1)
         
-    if initialData["eyeDist"] == None:
-        calibrate(frame)
+#     if initialData["eyeDist"] == None:
+#         calibrate(frame)
         
-    detectPosture(frame)
+#     detectPosture(frame)
         
-    renderMesh(frame)
+#     renderMesh(frame)
 
-    # Display the resulting frame
-    cv2.imshow('Video Capture', frame)
-    if cv2.waitKey(1) == ord('q'):
-        break
+#     # Display the resulting frame
+#     cv2.imshow('Video Capture', frame)
+#     if cv2.waitKey(1) == ord('q'):
+#         break
     
     
 
-cap.release()
-cv2.destroyAllWindows()
+# cap.release()
+# cv2.destroyAllWindows()
