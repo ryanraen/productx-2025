@@ -78,7 +78,7 @@ def calibrate(frame):
                 
     return initialData
 
-def detectPosture(image):
+def detectPosture(frame):
     """Detects posture issues based on calibrated initial values"""
     
     poseResults = pose.process(frame)
