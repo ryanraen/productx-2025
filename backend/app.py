@@ -81,7 +81,6 @@ def create_user():
         "country": data["country"],
         "active": False
     }
-    
 
     return jsonify({"message": "User created", "user_id": new_id, "users": users}), 201
 

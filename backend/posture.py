@@ -137,7 +137,7 @@ def detectPosture(image):
                 
                 
 
-def renderMesh(image):
+def renderMesh(frame):
     """Renders Mediapipe mesh onto the frame"""
     
     poseResults = pose.process(frame)
