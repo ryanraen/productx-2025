@@ -178,7 +178,7 @@ def process_frame():
     if not feedback:
         days[day_id]["good-posture-time"] += 1
     if "Bad Posture! Keep Your Head Up!" in feedback:
-        days[day_id]["face-close-time"] += 1
+        days[day_id]["front-slouch-time"] += 1
     if "Slouching Detected! Straighten Shoulders!" in feedback:
         days[day_id]["shoulder-tilt-time"] += 1
     if "Slouching Detected! Sit Upright!" in feedback:
