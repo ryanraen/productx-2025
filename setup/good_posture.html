@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Good Posture</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <div class="sidebar">
@@ -17,13 +17,30 @@
     </div>
 
     <div class="main-content">
+        <nav class="top-nav">
+            <a href="../setup.html">Setup Intro</a>
+            <a href="how_to_sit.html">How to Sit</a>
+            <a href="tips.html">Tips</a>
+            <a href="good_posture.html" class="active">Good Posture</a>
+            <a href="bad_posture.html">Bad Posture</a>
+            <a href="all_set.html">All Set</a>
+        </nav>
+
         <h1>Good Posture</h1>
         <p>Get comfortable.</p>
         <p>Sit up straight.</p>
         <p>Make sure the droid can see your head.</p>
         <p>When you’re ready, press the button to begin.</p>
         <p>Feel free to move around a little.</p>
-        <button onclick="window.location.href='bad_posture.html'">Next ➡</button>
+
+        <div class="button-group">
+            <button onclick="startCamera()">🎥 Try It Now</button>
+            <button onclick="window.location.href='bad_posture.html'">Next ➡</button>
+        </div>
+        
+        <video id="camera-feed" autoplay></video>
     </div>
+
+    <script src="../script.js"></script>
 </body>
 </html>

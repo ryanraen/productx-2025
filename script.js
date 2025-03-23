@@ -59,7 +59,3 @@ function startCamera() {
 function nextStep() {
     window.location.href = "setup/how_to_sit.html";
 }
-
-function skipSetup() {
-    window.location.href = "index.html";
-}
