@@ -45,17 +45,85 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-// Start camera
-function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            document.getElementById('camera-feed').srcObject = stream;
-        })
-        .catch(error => console.error("Error accessing camera:", error));
-}
-
 function nextStep() {
     window.location.href = "setup/how_to_sit.html";
 }
 
+// Video fetching
+const video = document.getElementById('camera-feed');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let recording = false;
+let intervalId = null;
+let stream = null; // Store camera stream reference
+
+document.getElementById('startRecording').addEventListener('click', startRecording);
+document.getElementById('stopRecording').addEventListener('click', stopRecording);
+
+// Start the camera only if it's not already running
+function startCamera(callback) {
+    if (!stream) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(mediaStream => {
+                stream = mediaStream;
+                video.srcObject = stream;
+                video.onloadedmetadata = () => {
+                    if (callback) callback(); // Ensure recording starts only when camera is ready
+                };
+            })
+            .catch(error => console.error("Error accessing camera:", error));
+    } else if (callback) {
+        callback(); // Camera is already running, proceed with recording
+    }
+}
+
+function stopCamera() {
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop()); // Stop all video tracks
+        video.srcObject = null; // Remove video source
+        stream = null; // Reset stream variable
+        console.log("Camera stopped");
+    }
+}
+
+function startRecording() {
+    if (!recording) {
+        startCamera(() => {
+            recording = true;
+            intervalId = setInterval(captureAndSend, 1000);
+            console.log("Recording started");
+        });
+    }
+}
+
+function stopRecording() {
+    if (recording) {
+        clearInterval(intervalId); // Stop capturing images
+        intervalId = null;
+        recording = false;
+        console.log("Recording stopped");
+    }
+    stopCamera(); // Also stop the camera
+}
+
+function captureAndSend() {
+    if (!recording || !video.videoWidth || !video.videoHeight) return; // Ensure recording is active
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const imageBase64 = canvas.toDataURL('image/jpeg'); // Convert to base64
+    sendToBackend(imageBase64);
+}
+
+function sendToBackend(imageBase64) {
+    fetch('/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: imageBase64 })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Server response:', data))
+    .catch(error => console.error('Error sending image:', error));
+}

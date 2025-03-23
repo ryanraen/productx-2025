@@ -32,10 +32,12 @@
         <p>If you slouch, a droid will remind you to sit up.</p>
 
         <div class="button-group">
-            <button onclick="startCamera()">🎥 Try It Now</button>
+            <button id="startRecording">🎥 Start Recording</button>
+            <button id="stopRecording">⏹ Stop Recording</button>
             <button onclick="nextStep()">Continue ➡</button>
         </div>
         
+        <canvas id="canvas" style="display: none;"></canvas>
         <video id="camera-feed" autoplay></video>
     </div>
 

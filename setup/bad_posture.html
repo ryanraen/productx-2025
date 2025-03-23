@@ -34,10 +34,12 @@
         <p>Now press the button to begin.</p>
 
         <div class="button-group">
-            <button onclick="startCamera()">🎥 Try It Now</button>
+            <button id="startRecording">🎥 Start Recording</button>
+            <button id="stopRecording">⏹ Stop Recording</button>
             <button onclick="window.location.href='all_set.html'">Next ➡</button>
         </div>
         
+        <canvas id="canvas" style="display: none;"></canvas>
         <video id="camera-feed" autoplay></video>
     </div>
 
