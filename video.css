@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* General Styles */
 body {
     font-family: 'Poppins', sans-serif;
@@ -19,7 +17,7 @@ h1, h2 {
     background: #2c3e50;
     color: white;
     padding: 20px;
-    height:auto;
+    height:800px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -211,7 +209,7 @@ canvas {
 
 
 /* Video Section */
-/* video {
+video {
     display: block;
     margin: 20px auto;
     width: 40%;
@@ -238,4 +236,4 @@ canvas {
     video {
         width: 90%;
     }
-} */
+}
