@@ -50,8 +50,5 @@ pip install -r requirements.txt
 python app.py
 ```
 
-### 3️⃣ Frontend Setup
-```sh
-cd frontend
-start index.html
-```
+### 3️⃣ Frontend
+visit ```posturex.vercel.app```
