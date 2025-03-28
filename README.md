@@ -51,4 +51,4 @@ python app.py
 ```
 
 ### 3️⃣ Frontend
-visit ```posturex.vercel.app```
+visit [posturex.vercel.app](posturex.vercel.app)
